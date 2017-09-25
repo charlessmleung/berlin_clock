@@ -64,91 +64,91 @@ public class BerlinClock implements TimeConverter {
 	return String.join(NEW_LINE, Arrays.asList(line1, line2, line3, line4, line5)); 
       }
       
-      /** Format seconds in line 1
-      *
-      * @param seconds - an int representing Seconds
-      *
-      * @return line 1 in BerlinTime object
-      */
-	    private String formatSecondsRow(int seconds){
-	    	if(seconds%2==0) 
+    /** Format seconds in line 1
+    *
+    * @param seconds - an int representing Seconds
+    *
+    * @return line 1 in BerlinTime object
+    */	
+    private String formatSecondsRow(int seconds){
+	if(seconds%2==0) 
             return "Y"; 
         else 
             return "O";
-	    }
+    }
 
-      /** Format hours in line 2
-      *
-      * @param hours - an int representing Hours
-      *
-      * @return line 2 in BerlinTime object
-      */
-	    private String formatHours1Row(int hours){
+    /** Format hours in line 2
+    *
+    * @param hours - an int representing Hours
+    *
+    * @return line 2 in BerlinTime object
+    */
+    private String formatHours1Row(int hours){
         int numberOfRedCells = hours / 5;
 
         return formatRow("R", numberOfRedCells, 4);
-	    }
+    }
 
-      /** Format hours in line 3
-      *
-      * @param hours - an int representing Hours
-      *
-      * @return line 3 in BerlinTime object
-      */
-	    private String formatHours2Row(int hours){
-	    	int numberOfRedCells = hours % 5; 
-	    	return formatRow("R", numberOfRedCells, 4);
-	    }
+    /** Format hours in line 3
+    *
+    * @param hours - an int representing Hours
+    *
+    * @return line 3 in BerlinTime object
+    */
+    private String formatHours2Row(int hours){
+    	int numberOfRedCells = hours % 5; 
+    	return formatRow("R", numberOfRedCells, 4);
+    }
 
-      /** Format minutes in line 4
-      *
-      * @param minutes - an int representing Minutes
-      *
-      * @return line 4 in BerlinTime object
-      */
-	    private String formatMinutes1Row(int minutes){
+    /** Format minutes in line 4
+    *
+    * @param minutes - an int representing Minute      
+    *
+    * @return line 4 in BerlinTime object
+    */
+    private String formatMinutes1Row(int minutes){
         int numberOfYellowCells = minutes / 5;
-	    	char[] row = formatRow("Y", numberOfYellowCells, 11).toCharArray();
+   	char[] row = formatRow("Y", numberOfYellowCells, 11).toCharArray();
 
-	    	changeToRedIfYellow(row, 2);
-	    	changeToRedIfYellow(row, 5);
-	    	changeToRedIfYellow(row, 8);
+	changeToRedIfYellow(row, 2);
+	changeToRedIfYellow(row, 5);
+	changeToRedIfYellow(row, 8);
 
-	    	return new String(row);
+	return new String(row);
+    }
+
+    /** Format minutes in line 5
+    *
+    * @param minutes - an int representing Minutes
+    *
+    * @return line 5 in BerlinTime objec      
+    */
+    private String formatMinutes2Row(int minutes){
+    int numberOfRedCells = minutes % 5;
+
+    return formatRow("Y", numberOfRedCells, 4);
 	    }
 
-      /** Format minutes in line 5
-      *
-      * @param minutes - an int representing Minutes
-      *
-      * @return line 5 in BerlinTime object
-      */
-	    private String formatMinutes2Row(int minutes){
-	    	int numberOfRedCells = minutes % 5;
-
-	    	return formatRow("Y", numberOfRedCells, 4);
-	    }
-
-      /** Format rows
-      *
-      * @param light - a string representing (Y)ellow or (R)ed lamp
-      * @param times - an int representing number of lamp lighted up
-      * @param length - an int representing number of character in the line
-      *
-      * @return line in BerlinTime object
-      */
-	    private String formatRow(String light, int times, int length){
+    /** Format rows
+    *
+    * @param light - a string representing (Y)ellow or (R)ed lamp
+    * @param times - an int representing number of lamp lighted up
+    * @param length - an int representing number of character in the line
+    *
+    * @return line in BerlinTime object
+    */
+    private String formatRow(String light, int times, int length){
 	    	return StringUtils.repeat(light, times) + StringUtils.repeat("O", length - times);
 	    }
 
-      /** Change the colour from Yellow to Red
-      *
-      * @param row - a character array representing a line 
-      * @param index - an int representing the index in a line
-      *
-      */
-	    private void changeToRedIfYellow(char[] row, int index){
-	    	if(row[index]=='Y') 
+    /** Change the colour from Yellow to Red
+    *
+    * @param row - a character array representing a line 
+    * @param index - an int representing the index in a line
+    *
+    */
+    private void changeToRedIfYellow(char[] row, int index){
+    	if(row[index]=='Y') 
             row[index] = 'R';
-	    }
+    }
 }
