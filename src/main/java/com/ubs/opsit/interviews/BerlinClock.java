@@ -124,10 +124,10 @@ public class BerlinClock implements TimeConverter {
     * @return line 5 in BerlinTime objec      
     */
     private String formatMinutes2Row(int minutes){
-    int numberOfRedCells = minutes % 5;
+    	int numberOfRedCells = minutes % 5;
 
-    return formatRow("Y", numberOfRedCells, 4);
-	    }
+    	return formatRow("Y", numberOfRedCells, 4);
+    }
 
     /** Format rows
     *
@@ -138,8 +138,8 @@ public class BerlinClock implements TimeConverter {
     * @return line in BerlinTime object
     */
     private String formatRow(String light, int times, int length){
-	    	return StringUtils.repeat(light, times) + StringUtils.repeat("O", length - times);
-	    }
+	return StringUtils.repeat(light, times) + StringUtils.repeat("O", length - times);
+    }
 
     /** Change the colour from Yellow to Red
     *
