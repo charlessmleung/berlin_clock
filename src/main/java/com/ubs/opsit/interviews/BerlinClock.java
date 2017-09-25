@@ -1,9 +1,8 @@
 package com.ubs.opsit.interviews;
 
-import org.apache.commons.lang.Validate;
+import java.util.Arrays;
+import java.util.Collections;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.text.StrBuilder;
-import static org.apache.commons.lang.math.NumberUtils.*;
 
 public class BerlinClock implements TimeConverter {
     private String formattedTime;
@@ -17,7 +16,6 @@ public class BerlinClock implements TimeConverter {
      *
      * @param aTime - The 24 hour time in the format of HH:MM:SS
      */
-    @Override
     public String convertTime(String aTime){
       int hours, minutes, seconds = 0;
     
@@ -25,7 +23,7 @@ public class BerlinClock implements TimeConverter {
       if(aTime == null) throw new IllegalArgumentException(NO_TIME_ERROR);
           
       // Split times into hours, minutes and seconds
-      String[] times = time.split(":", 3);
+      String[] times = aTime.split(":", 3);
       
       // Validate the input format
       if(times.length != 3) throw new IllegalArgumentException(INVALID_TIME_ERROR);
@@ -61,10 +59,9 @@ public class BerlinClock implements TimeConverter {
     	String line2 = formatHours1Row(hours);
     	String line3 = formatHours2Row(hours);
     	String line4 = formatMinutes1Row(minutes);
-    	String line5 = formatMiuntes2Row(minutes);
-      
-      return new StrBuilder().appendWithSeparators(
-	    			new String[]{ line1, line2, line3, line4, line5 }, System.lineSeparator()).toString();
+    	String line5 = formatMinutes2Row(minutes);
+	    
+	return String.join(NEW_LINE, Arrays.asList(line1, line2, line3, line4, line5)); 
       }
       
       /** Format seconds in line 1
@@ -87,7 +84,7 @@ public class BerlinClock implements TimeConverter {
       * @return line 2 in BerlinTime object
       */
 	    private String formatHours1Row(int hours){
-        int numberOfRedCells = hour / 5;
+        int numberOfRedCells = hours / 5;
 
         return formatRow("R", numberOfRedCells, 4);
 	    }
@@ -99,7 +96,7 @@ public class BerlinClock implements TimeConverter {
       * @return line 3 in BerlinTime object
       */
 	    private String formatHours2Row(int hours){
-	    	int numberOfRedCells = hour % 5; 
+	    	int numberOfRedCells = hours % 5; 
 	    	return formatRow("R", numberOfRedCells, 4);
 	    }
 
